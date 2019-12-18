@@ -1,0 +1,42 @@
+#include <iostream>
+#include <fstream>
+#include <sstream>
+#include <iomanip>
+
+using namespace std;
+
+int main(int argc, char *argv[]) {
+
+    double sum = 0;
+    int cnt = 0;
+
+
+    for (int i=1; i<argc; i++) {
+        string filename = argv[i]; 
+        cout << filename << endl;
+        ifstream fin(filename);
+    
+
+        string row;
+        while (getline(fin, row)) {
+            cout << row << endl;
+            stringstream rowInput(row);
+            string signature;
+            getline(rowInput, signature, ';');
+            if (signature == "CITB104") {
+
+                int x;
+                while(rowInput >> x) {
+                    sum += x;
+                    cnt++;
+                    string delim;
+                    getline(rowInput, delim, ';');
+                }   
+            }
+        }
+
+    }
+    cout << fixed << setprecision(2);
+    cout << sum/cnt << endl;
+    return 0;
+} 
